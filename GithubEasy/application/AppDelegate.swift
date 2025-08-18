@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  GithubEasy
 //
-//  Created by Şükrü Hasta on 18.08.2025.
+//  Created by rabiakama on 18.08.2025.
 //
 
 import UIKit
