@@ -4,20 +4,82 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23506"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="HomeTableViewCell" customModule="GithubEasy">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ScK-a6-erE">
+                        <rect key="frame" x="2" y="2" width="316" height="44"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zkc-ew-jdc">
+                                <rect key="frame" x="2" y="2" width="32" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="8Fc-aD-j0a"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Nlq-mY-IaS">
+                                <rect key="frame" x="38" y="2" width="276" height="40"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kf6-n3-xGK">
+                                        <rect key="frame" x="0.0" y="0.0" width="138" height="40"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="fill" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gb1-dq-ZE4">
+                                        <rect key="frame" x="138" y="0.0" width="138" height="40"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" image="star" catalog="system"/>
+                                        <connections>
+                                            <action selector="favoriteBtnClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="rzX-Nv-6sx"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Zkc-ew-jdc" firstAttribute="top" secondItem="ScK-a6-erE" secondAttribute="top" constant="2" id="6Iy-Nf-dch"/>
+                            <constraint firstAttribute="bottom" secondItem="Nlq-mY-IaS" secondAttribute="bottom" constant="2" id="AM1-bP-Fa6"/>
+                            <constraint firstItem="Nlq-mY-IaS" firstAttribute="top" secondItem="ScK-a6-erE" secondAttribute="top" constant="2" id="ghb-Sp-4de"/>
+                            <constraint firstItem="Zkc-ew-jdc" firstAttribute="leading" secondItem="ScK-a6-erE" secondAttribute="leading" constant="2" id="mBX-Hh-sZG"/>
+                            <constraint firstAttribute="trailing" secondItem="Nlq-mY-IaS" secondAttribute="trailing" constant="2" id="ngO-NN-YoX"/>
+                            <constraint firstItem="Nlq-mY-IaS" firstAttribute="leading" secondItem="Zkc-ew-jdc" secondAttribute="trailing" constant="4" id="rTm-UL-h1U"/>
+                            <constraint firstAttribute="bottom" secondItem="Zkc-ew-jdc" secondAttribute="bottom" constant="2" id="vJv-qW-oN0"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.92000000000000004" alpha="0.050000000000000003" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstItem="ScK-a6-erE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="2" id="3Yj-Ig-5zc"/>
+                    <constraint firstItem="ScK-a6-erE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="2" id="A6c-8Y-I9F"/>
+                    <constraint firstAttribute="trailing" secondItem="ScK-a6-erE" secondAttribute="trailing" constant="2" id="Ji1-l8-PWH"/>
+                    <constraint firstAttribute="bottom" secondItem="ScK-a6-erE" secondAttribute="bottom" constant="2" id="nAh-kc-EEW"/>
+                </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <point key="canvasLocation" x="131" y="-11"/>
+            <connections>
+                <outlet property="avatarImg" destination="Zkc-ew-jdc" id="15j-qe-yGz"/>
+                <outlet property="favoriteBtn" destination="gb1-dq-ZE4" id="TUX-ud-EVp"/>
+                <outlet property="itemView" destination="ScK-a6-erE" id="TEd-9n-uL4"/>
+                <outlet property="nameLbl" destination="kf6-n3-xGK" id="mvd-jc-4SW"/>
+            </connections>
+            <point key="canvasLocation" x="129.7709923664122" y="-11.267605633802818"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

@@ -9,6 +9,10 @@ import UIKit
 
 class HomeTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var favoriteBtn: UIButton!
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var avatarImg: UIImageView!
+    @IBOutlet weak var itemView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -20,4 +24,6 @@ class HomeTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func favoriteBtnClicked(_ sender: Any) {
+    }
 }
