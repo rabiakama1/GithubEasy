@@ -8,16 +8,16 @@
 import Foundation
 
 struct UserDTO: Codable {
-    let userName: String
+    let login: String
     let avatarUrl: String
 
     enum CodingKeys: String, CodingKey {
-        case userName
+        case login
         case avatarUrl = "avatar_url"
     }
     
     // DTO'yu Domain modeline çevirir
     func toDomain() -> User {
-        return User(userName: userName, avatarUrl: avatarUrl)
+        return User(login: login, avatarUrl: avatarUrl)
     }
 }

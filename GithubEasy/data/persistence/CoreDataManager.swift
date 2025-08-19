@@ -48,7 +48,7 @@ final class CoreDataManager {
     /// Belirtilen kullanıcı favorilerde mi diye kontrol eder.
     func isFavorite(login: String) -> Bool {
         let fetchRequest: NSFetchRequest<FavoriteUser> = FavoriteUser.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "userName == %@", login)
+        fetchRequest.predicate = NSPredicate(format: "login == %@", login)
         
         do {
             let count = try context.count(for: fetchRequest)
@@ -62,7 +62,7 @@ final class CoreDataManager {
     /// Yeni bir kullanıcıyı favorilere ekler.
     func addFavorite(name: String, avatarUrl: String) {
         let favoriteUser = FavoriteUser(context: context)
-        favoriteUser.userName = name
+        favoriteUser.login = name
         favoriteUser.avatarURL = avatarUrl
         favoriteUser.date = Date()
         
@@ -72,7 +72,7 @@ final class CoreDataManager {
     /// Bir kullanıcıyı favorilerden siler.
     func deleteFavorite(login: String) {
         let fetchRequest: NSFetchRequest<FavoriteUser> = FavoriteUser.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "userName == %@", login)
+        fetchRequest.predicate = NSPredicate(format: "login == %@", login)
         
         do {
             let results = try context.fetch(fetchRequest)

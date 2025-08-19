@@ -8,19 +8,43 @@
 class DefaultUserRepository: UserRepositoryProtocol {
     
     private let apiService: APIService
-    private let coreDataManager = CoreDataManager.shared
-        
-    // MARK: - Favorites
-    func searchUsers(query: String, completion: @escaping (Result<[User], any Error>) -> Void) {
-        
+    private var coreDataManager = CoreDataManager.shared
+    
+    init(apiService: APIService,coreData: CoreDataManager) {
+        self.apiService = apiService
+        self.coreDataManager = coreData
     }
     
-    func getUserDetail(username: String, completion: @escaping (Result<UserDetail, any Error>) -> Void) {
-        
+    // MARK: - Network Operations
+    
+    func searchUsers(query: String, completion: @escaping (Result<[User], Error>) -> Void) {
+        apiService.searchUsers(query: query) { result in
+            switch result {
+            case .success(let responseDTO):
+                let users = responseDTO.items.map { $0.toDomain() }
+                completion(.success(users))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
     }
+    
+    func getUserDetail(login: String, completion: @escaping (Result<UserDetail, Error>) -> Void) {
+        apiService.getUserDetail(login: login) { result in
+            switch result {
+            case .success(let detailDTO):
+                let userDetail = detailDTO.toDomain()
+                completion(.success(userDetail))
+            case .failure(let error):
+                completion(.failure(error))
+            }
+        }
+    }
+    
+    // MARK: - Favorites Operations
     
     func addFavorite(user: User) {
-        coreDataManager.addFavorite(name: user.userName, avatarUrl: user.avatarUrl)
+        coreDataManager.addFavorite(name: user.login, avatarUrl: user.avatarUrl)
     }
     
     func removeFavorite(login: String) {
@@ -29,7 +53,7 @@ class DefaultUserRepository: UserRepositoryProtocol {
     
     func getFavorites() -> [User] {
         let favoriteEntities = coreDataManager.fetchAllFavorites()
-        return favoriteEntities.map { User(userName: $0.userName ?? "", avatarUrl: $0.avatarURL ?? "") }
+        return favoriteEntities.map { User(login: $0.login ?? "", avatarUrl: $0.avatarURL ?? "") }
     }
     
     func isUserFavorite(login: String) -> Bool {

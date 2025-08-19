@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="GithubEasy" customModuleProvider="target">
             <connections>
+                <outlet property="searchBar" destination="kSp-do-ziw" id="VN9-oJ-ERb"/>
+                <outlet property="tableView" destination="9S2-yZ-rNV" id="ExK-FN-EAB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

@@ -8,6 +8,7 @@
 import Foundation
 
 struct User: Equatable, Hashable {
-    let userName: String
+    let login: String
     let avatarUrl: String
+    let profileUrl: String
 }

@@ -17,9 +17,9 @@ protocol UserRepositoryProtocol {
     
     /// Belirli bir kullanıcının detay bilgilerini getirir.
     /// - Parameters:
-    ///   - username: Detayları alınacak kullanıcının adı.
+    ///   - login: Detayları alınacak kullanıcının adı.
     ///   - completion: Sonucu içeren bir `Result` döner. Başarılı olursa `UserDetail`, başarısız olursa `Error`.
-    func getUserDetail(username: String, completion: @escaping (Result<UserDetail, Error>) -> Void)
+    func getUserDetail(login: String, completion: @escaping (Result<UserDetail, Error>) -> Void)
     
     
     // MARK: - Favorites Operations

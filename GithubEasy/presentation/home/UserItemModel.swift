@@ -1,5 +1,5 @@
 //
-//  UserDetail.swift
+//  UserItemModel.swift
 //  GithubEasy
 //
 //  Created by rabiakama on 19.08.2025.
@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct UserDetail {
+struct UserItemModel {
     let login: String
     let avatarUrl: String
-    let date: Date
+    let profileUrl: String
+    var isFavorite: Bool
 }

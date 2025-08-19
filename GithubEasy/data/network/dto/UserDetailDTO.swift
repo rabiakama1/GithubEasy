@@ -8,12 +8,12 @@
 import Foundation
 
 struct UserDetailDTO: Codable {
-    let userName: String
+    let login: String
     let avatarUrl: String
     let date: Date
     
     enum CodingKeys: String, CodingKey {
-        case userName
+        case login
         case avatarUrl = "avatar_url"
         case date
     }
@@ -21,7 +21,7 @@ struct UserDetailDTO: Codable {
     // DTO'yu Domain modeline çevirir
     func toDomain() -> UserDetail {
         return UserDetail(
-            userName: userName,
+            login: login,
             avatarUrl: avatarUrl,
             date: date
         )

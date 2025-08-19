@@ -9,21 +9,19 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var userNameLbl: UILabel!
+    @IBOutlet weak var profileLbl: UILabel!
+    @IBOutlet weak var favoriteBtn: UIButton!
+    @IBOutlet weak var detailView: UIView!
+    @IBOutlet weak var avatarImg: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func favoriteBtnClicked(_ sender: Any) {
     }
-    */
-
+    
 }
