@@ -37,6 +37,7 @@ class HomeViewController: UIViewController {
     
     private func setupUI() {
         self.title = "Home"
+        searchBar.placeholder = "Search"
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
@@ -71,7 +72,7 @@ class HomeViewController: UIViewController {
             tableView.reloadData()
         case .failure(let error):
             removeLoading()
-            showAlert(title: "Hata", message: error)
+            showAlert(title: "Error", message: error)
         case .empty(let message):
             removeLoading()
             users = []

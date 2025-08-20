@@ -10,9 +10,7 @@ import CoreData
 
 final class CoreDataManager {
 
-    // Singleton Pattern: Uygulamanın her yerinden aynı instance'a erişim için.
-    static let shared = CoreDataManager()
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "FavoriteUsersModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -30,6 +28,8 @@ final class CoreDataManager {
     var context: NSManagedObjectContext {
         return persistentContainer.viewContext
     }
+
+    init() {}
 
     // Context'te yapılan değişiklikleri veritabanına kalıcı olarak kaydeder
     func saveContext() {
@@ -60,14 +60,17 @@ final class CoreDataManager {
     }
     
     /// Yeni bir kullanıcıyı favorilere ekler.
-    func addFavorite(name: String, avatarUrl: String) {
+    func addFavorite(login: String, avatarUrl: String, profileUrl: String) {
         let favoriteUser = FavoriteUser(context: context)
-        favoriteUser.login = name
+        favoriteUser.login = login
         favoriteUser.avatarURL = avatarUrl
+        favoriteUser.htmlURL = profileUrl
         favoriteUser.date = Date()
-        
+        print("✅ Favori ekleniyor: \(login)")
         saveContext()
+        print("💾 Kayıt işlemi tamamlandı.")
     }
+    
     
     /// Bir kullanıcıyı favorilerden siler.
     func deleteFavorite(login: String) {
@@ -94,7 +97,7 @@ final class CoreDataManager {
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {
-            return try context.fetch(fetchRequest)
+           return try context.fetch(fetchRequest)
         } catch {
             print("Tüm favorileri getirme hatası: \(error)")
             return []

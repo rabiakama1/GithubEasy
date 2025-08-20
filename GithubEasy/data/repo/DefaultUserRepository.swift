@@ -8,8 +8,8 @@
 class DefaultUserRepository: UserRepositoryProtocol {
     
     private let apiService: APIService
-    private var coreDataManager = CoreDataManager.shared
-    
+    private let coreDataManager: CoreDataManager
+
     init(apiService: APIService, coreData: CoreDataManager) {
          self.apiService = apiService
          self.coreDataManager = coreData
@@ -44,7 +44,7 @@ class DefaultUserRepository: UserRepositoryProtocol {
     // MARK: - Favorites Operations
     
     func addFavorite(user: User) {
-        coreDataManager.addFavorite(name: user.login, avatarUrl: user.avatarUrl)
+        coreDataManager.addFavorite(login: user.login, avatarUrl: user.avatarUrl, profileUrl: user.profileUrl)
     }
     
     func removeFavorite(login: String) {

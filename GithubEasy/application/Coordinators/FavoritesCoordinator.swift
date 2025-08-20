@@ -9,30 +9,32 @@ import UIKit
 
 final class FavoritesCoordinator: Coordinator {
     private let navigationController: UINavigationController
+    private let userRepository: UserRepositoryProtocol
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, userRepository: UserRepositoryProtocol) {
         self.navigationController = navigationController
+        self.userRepository = userRepository
     }
     
     func start() {
-        let userRepository = DefaultUserRepository(apiService: APIService(), coreData: CoreDataManager.shared)
         let getFavoritesUseCase = GetFavoritesUseCase(repository: userRepository)
         let removeFavoriteUseCase = RemoveFavoriteUseCase(repository: userRepository)
         
-      /*  let favoritesViewModel = FavoritesViewModel(
+        let favoriteViewModel = FavoriteViewModel(
             getFavoritesUseCase: getFavoritesUseCase,
             removeFavoriteUseCase: removeFavoriteUseCase
         )
         
-        let favoritesVC = FavoritesViewController(viewModel: favoritesViewModel)
+        let favoritesVC = FavoriteViewController(viewModel: favoriteViewModel)
         
         favoritesVC.onUserSelected = { [weak self] userLogin in
-            self?.showDetail(for: userLogin, repository: userRepository)
-        }*/
+            self?.showDetail(for: userLogin)
+        }
         
-        //navigationController.viewControllers = [favoritesVC]
+        navigationController.viewControllers = [favoritesVC]
     }
     
-    private func showDetail(for userLogin: String, repository: UserRepositoryProtocol) {
+    private func showDetail(for userLogin: String) {
+        
     }
 }

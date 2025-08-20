@@ -10,8 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FavoriteViewController" customModule="GithubEasy" customModuleProvider="target">
             <connections>
-                <outlet property="favoriteTableView" destination="oez-UY-U0E" id="vOJ-BL-GIp"/>
-                <outlet property="searchBar" destination="NYc-tf-mbq" id="ixF-SY-WkT"/>
+                <outlet property="favoriteTableView" destination="oez-UY-U0E" id="EAn-sZ-zM4"/>
+                <outlet property="searchBar" destination="NYc-tf-mbq" id="NQE-rW-u27"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

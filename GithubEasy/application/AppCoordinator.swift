@@ -21,20 +21,25 @@ final class AppCoordinator: Coordinator {
     }
     
     func start() {
+        let apiService = APIService()
+        let coreDataManager = CoreDataManager()
+        let userRepository = DefaultUserRepository(apiService: apiService, coreData: coreDataManager)
         let tabBarController = MainTabBarController()
+        
         let homeNavigationController = UINavigationController()
-        homeNavigationController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
-        let homeCoordinator = HomeCoordinator(navigationController: homeNavigationController)
+        homeNavigationController.tabBarItem = UITabBarItem(title: "Arama", image: UIImage(systemName: "magnifyingglass"), tag: 0)
+        let homeCoordinator = HomeCoordinator(navigationController: homeNavigationController, userRepository: userRepository)
         
         let favoritesNavigationController = UINavigationController()
-        favoritesNavigationController.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(systemName: "star.fill"), tag: 1)
-        let favoritesCoordinator = FavoritesCoordinator(navigationController: favoritesNavigationController)
+        favoritesNavigationController.tabBarItem = UITabBarItem(title: "Favoriler", image: UIImage(systemName: "star.fill"), tag: 1)
+        let favoritesCoordinator = FavoritesCoordinator(navigationController: favoritesNavigationController, userRepository: userRepository)
+        
         childCoordinators = [homeCoordinator, favoritesCoordinator]
         homeCoordinator.start()
         favoritesCoordinator.start()
         
         tabBarController.viewControllers = [homeNavigationController, favoritesNavigationController]
-
+        
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()
     }

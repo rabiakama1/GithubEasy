@@ -9,15 +9,14 @@ import UIKit
 
 final class HomeCoordinator: Coordinator {
     private let navigationController: UINavigationController
+    private let userRepository: UserRepositoryProtocol
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, userRepository: UserRepositoryProtocol) {
         self.navigationController = navigationController
+        self.userRepository = userRepository
     }
     
     func start() {
-        let apiService = APIService()
-        let userRepository = DefaultUserRepository(apiService: apiService, coreData: CoreDataManager.shared)
-        
         let searchUseCase = SearchUsersUseCase(repository: userRepository)
         let addFavoriteUseCase = AddFavoriteUseCase(repository: userRepository)
         let removeFavoriteUseCase = RemoveFavoriteUseCase(repository: userRepository)
@@ -33,14 +32,13 @@ final class HomeCoordinator: Coordinator {
         let homeVC = HomeViewController(viewModel: homeViewModel)
         
         homeVC.onUserSelected = { [weak self] userLogin in
-            self?.showDetail(for: userLogin, repository: userRepository)
+            self?.showDetail(for: userLogin)
         }
-                
+        
         navigationController.viewControllers = [homeVC]
     }
     
-    private func showDetail(for userLogin: String, repository: UserRepositoryProtocol) {
+    private func showDetail(for userLogin: String) {
         // Detay sayfasını push etme mantığı burada.
-        // (Bir önceki cevaptaki gibi)
     }
 }
