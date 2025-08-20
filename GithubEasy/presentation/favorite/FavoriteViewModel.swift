@@ -5,6 +5,8 @@
 //  Created by rabiakama on 19.08.2025.
 //
 
+import Foundation
+
 final class FavoriteViewModel {
     
     private let getFavoritesUseCase: GetFavoritesUseCase
@@ -57,6 +59,8 @@ final class FavoriteViewModel {
     
     func removeFavorite(user: UserItemModel) {
         removeFavoriteUseCase.execute(login: user.login)
+        let userInfo = ["login": user.login]
+        NotificationCenter.default.post(name: .didUpdateFavoriteStatus, object: nil, userInfo: userInfo)
         fetchFavorites()
     }
     

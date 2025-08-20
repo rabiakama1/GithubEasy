@@ -55,6 +55,13 @@ class HomeViewController: UIViewController {
                 self?.handleStateChange(state)
             }
         }
+        viewModel.onRowUpdate = { [weak self] indexPath, updatedUserModel in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.users[indexPath.row] = updatedUserModel
+                self.tableView.reloadRows(at: [indexPath], with: .fade) 
+            }
+        }
     }
     
     private func handleStateChange(_ state: ViewState<[UserItemModel]>) {
@@ -119,9 +126,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension HomeViewController: HomeTableViewCellDelegate {
+    
     func didTapFavoriteButton(in cell: HomeTableViewCell) {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
-        viewModel.toggleFavoriteStatus(at: indexPath.row)
+        viewModel.toggleFavoriteStatus(for: indexPath)
     }
 }
 

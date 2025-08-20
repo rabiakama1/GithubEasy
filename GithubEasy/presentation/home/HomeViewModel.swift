@@ -27,6 +27,7 @@ final class HomeViewModel {
     private var isLoading = false
     private var hasMoreUsers = true
     var onStateChange: ((ViewState<[UserItemModel]>) -> Void)?
+    var onRowUpdate: ((IndexPath, UserItemModel) -> Void)?
     private var cellViewModels: [UserItemModel] = []
     
     init(searchUsersUseCase: SearchUsersUseCase, addFavoriteUseCase: AddFavoriteUseCase, removeFavoriteUseCase: RemoveFavoriteUseCase, isFavoriteUseCase: IsFavoriteUseCase) {
@@ -34,6 +35,7 @@ final class HomeViewModel {
         self.addFavoriteUseCase = addFavoriteUseCase
         self.removeFavoriteUseCase = removeFavoriteUseCase
         self.isFavoriteUseCase = isFavoriteUseCase
+        startObservingFavoriteChanges()
     }
     
     func start() {
@@ -91,10 +93,36 @@ final class HomeViewModel {
         }
     }
     
-    func toggleFavoriteStatus(at index: Int) {
-        guard index < cellViewModels.count else { return }
-        var viewModel = cellViewModels[index]
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private func startObservingFavoriteChanges() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleFavoriteStatusChange),
+            name: .didUpdateFavoriteStatus,
+            object: nil
+        )
+    }
+    
+    @objc private func handleFavoriteStatusChange(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let login = userInfo["login"] as? String else { return }
+        
+        if let index = cellViewModels.firstIndex(where: { $0.login == login }) {
+            let isNowFavorite = isFavoriteUseCase.execute(login: login)
+            cellViewModels[index].isFavorite = isNowFavorite
+            let indexPath = IndexPath(row: index, section: 0)
+            onRowUpdate?(indexPath, cellViewModels[index])
+        }
+    }
+    
+    func toggleFavoriteStatus(for indexPath: IndexPath) {
+        guard indexPath.row < cellViewModels.count else { return }
+        var viewModel = cellViewModels[indexPath.row]
         let userToToggle = User(login: viewModel.login, avatarUrl: viewModel.avatarUrl, profileUrl: viewModel.profileUrl)
+        
         if viewModel.isFavorite {
             removeFavoriteUseCase.execute(login: userToToggle.login)
         } else {
@@ -102,8 +130,11 @@ final class HomeViewModel {
         }
         
         viewModel.isFavorite.toggle()
-        cellViewModels[index] = viewModel
-        onStateChange?(.success(cellViewModels))
+        cellViewModels[indexPath.row] = viewModel
+        //favori listesinde bir user silindiğinde ana listeyi tetiklemek için
+        let userInfo = ["login": userToToggle.login]
+        NotificationCenter.default.post(name: .didUpdateFavoriteStatus, object: nil, userInfo: userInfo)
+        onRowUpdate?(indexPath, viewModel)
     }
     
     private func mapUsersToCellViewModels(_ users: [User]) -> [UserItemModel] {
