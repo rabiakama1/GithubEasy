@@ -17,11 +17,7 @@ final class CoreDataManager {
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-        })
-        
-        // yeni veri eskisinin üzerine yazılsın diye
-        container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        
+        })        
         return container
     }()
 

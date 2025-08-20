@@ -8,7 +8,7 @@
         <attribute name="login" optional="YES" attributeType="String"/>
         <uniquenessConstraints>
             <uniquenessConstraint>
-                <constraint value="id"/>
+                <constraint value="login"/>
             </uniquenessConstraint>
         </uniquenessConstraints>
     </entity>
