@@ -56,10 +56,13 @@ final class APIService {
     // MARK: - Public Methods
     
     /// Verilen  sorgu ile kullanıcıları arar
-    func searchUsers(query: String, completion: @escaping (Result<UserResponseDTO, APIError>) -> Void) {
+    func searchUsers(query: String, page: Int, completion: @escaping (Result<UserResponseDTO, APIError>) -> Void) {
         let path = "search/users"
-        let queryItems = [URLQueryItem(name: "q", value: query)]
-        
+        let queryItems = [
+            URLQueryItem(name: "q", value: query),
+            URLQueryItem(name: "page", value: String(page)),
+            URLQueryItem(name: "per_page", value: "30")
+        ]
         performRequest(path: path, queryItems: queryItems, completion: completion)
     }
     

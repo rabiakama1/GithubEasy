@@ -10,9 +10,22 @@
 		FCFBB86B2E537D43009AB864 /* GithubEasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubEasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		FCCDB4912E56454D00792B5D /* Exceptions for "GithubEasy" folder in "GithubEasy" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = FCFBB86A2E537D43009AB864 /* GithubEasy */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		FCFBB86D2E537D43009AB864 /* GithubEasy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				FCCDB4912E56454D00792B5D /* Exceptions for "GithubEasy" folder in "GithubEasy" target */,
+			);
 			path = GithubEasy;
 			sourceTree = "<group>";
 		};

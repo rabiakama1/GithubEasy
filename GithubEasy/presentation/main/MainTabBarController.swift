@@ -7,39 +7,23 @@
 
 import UIKit
 
-class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
-    
+final class MainTabBarController: UITabBarController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTabs()
-        self.tabBar.tintColor = .systemBlue
-        self.tabBar.unselectedItemTintColor = .systemGray
-        self.delegate = self
+        setupTabsAppearance()
     }
     
-    private func setupTabs() {
-        let homeVC = HomeViewController(nibName: "HomeViewController", bundle: nil)
-        let favoriteVC = FavoriteViewController(nibName: "FavoriteViewController", bundle: nil)
-        let detailVC = DetailViewController(nibName: "HomeViewController", bundle: nil)
-        let homeNav = UINavigationController(rootViewController: homeVC)
-        let favoriteNav = UINavigationController(rootViewController: favoriteVC)
-        homeNav.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
-        favoriteNav.tabBarItem = UITabBarItem(title: "Favori", image: UIImage(systemName: "star"), tag: 1)
-        homeVC.title = "Home"
-        favoriteVC.title = "Favorites"
-        setViewControllers([homeNav, favoriteNav], animated: true)
+    private func setupTabsAppearance() {
+        let appearance = UITabBarAppearance()
+        
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .systemGray6
+        tabBar.unselectedItemTintColor = .systemGray
+        tabBar.tintColor = .systemBlue
+        tabBar.standardAppearance = appearance
+        if #available(iOS 15.0, *) {
+            tabBar.scrollEdgeAppearance = appearance
+        }
     }
-    
-    private func createNav(with title: String, and image: UIImage?, vc: UIViewController) -> UIViewController {
-        vc.tabBarItem.title = title
-        vc.tabBarItem.image = image
-        return vc
-    }
-    
-    private func setupTabBar() {
-        tabBar.tintColor = UIColor.systemBlue
-        tabBar.backgroundColor = UIColor.white
-        tabBar.isTranslucent = false
-    }
-
 }

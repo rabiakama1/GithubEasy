@@ -10,24 +10,24 @@ class DefaultUserRepository: UserRepositoryProtocol {
     private let apiService: APIService
     private var coreDataManager = CoreDataManager.shared
     
-    init(apiService: APIService,coreData: CoreDataManager) {
-        self.apiService = apiService
-        self.coreDataManager = coreData
-    }
+    init(apiService: APIService, coreData: CoreDataManager) {
+         self.apiService = apiService
+         self.coreDataManager = coreData
+     }
     
     // MARK: - Network Operations
     
-    func searchUsers(query: String, completion: @escaping (Result<[User], Error>) -> Void) {
-        apiService.searchUsers(query: query) { result in
-            switch result {
-            case .success(let responseDTO):
-                let users = responseDTO.items.map { $0.toDomain() }
-                completion(.success(users))
-            case .failure(let error):
-                completion(.failure(error))
-            }
-        }
-    }
+    func searchUsers(query: String, page: Int, completion: @escaping (Result<[User], Error>) -> Void) {
+           apiService.searchUsers(query: query, page: page) { result in
+               switch result {
+               case .success(let responseDTO):
+                   let users = responseDTO.items.map { $0.toDomain() }
+                   completion(.success(users))
+               case .failure(let error):
+                   completion(.failure(error))
+               }
+           }
+       }
     
     func getUserDetail(login: String, completion: @escaping (Result<UserDetail, Error>) -> Void) {
         apiService.getUserDetail(login: login) { result in
@@ -53,7 +53,7 @@ class DefaultUserRepository: UserRepositoryProtocol {
     
     func getFavorites() -> [User] {
         let favoriteEntities = coreDataManager.fetchAllFavorites()
-        return favoriteEntities.map { User(login: $0.login ?? "", avatarUrl: $0.avatarURL ?? "") }
+        return favoriteEntities.map { User(login: $0.login ?? "", avatarUrl: $0.avatarURL ?? "", profileUrl: $0.htmlURL ?? "") }
     }
     
     func isUserFavorite(login: String) -> Bool {

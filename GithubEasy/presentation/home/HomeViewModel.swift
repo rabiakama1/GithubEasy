@@ -22,13 +22,12 @@ final class HomeViewModel {
     private let removeFavoriteUseCase: RemoveFavoriteUseCase
     private let isFavoriteUseCase: IsFavoriteUseCase
     
+    private var currentPage = 1
+    private var currentQuery = ""
+    private var isLoading = false
+    private var hasMoreUsers = true
     var onStateChange: ((ViewState<[UserItemModel]>) -> Void)?
-    
-    private var cellViewModels: [UserItemModel] = [] {
-        didSet {
-            onStateChange?(.success(cellViewModels))
-        }
-    }
+    private var cellViewModels: [UserItemModel] = []
     
     init(searchUsersUseCase: SearchUsersUseCase, addFavoriteUseCase: AddFavoriteUseCase, removeFavoriteUseCase: RemoveFavoriteUseCase, isFavoriteUseCase: IsFavoriteUseCase) {
         self.searchUsersUseCase = searchUsersUseCase
@@ -37,28 +36,58 @@ final class HomeViewModel {
         self.isFavoriteUseCase = isFavoriteUseCase
     }
     
+    func start() {
+        onStateChange?(.idle)
+    }
+    
     func search(query: String) {
+        currentQuery = query
+        currentPage = 1
+        cellViewModels = []
+        hasMoreUsers = true
+        
         guard !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-            self.cellViewModels = []
             onStateChange?(.idle)
             return
         }
         
-        onStateChange?(.loading)
-        
-        searchUsersUseCase.execute(query: query) { [weak self] result in
+        fetchUsers()
+    }
+    
+    func loadMoreUsers() {
+        guard !isLoading && hasMoreUsers else { return }
+        currentPage += 1
+        fetchUsers()
+    }
+    
+    private func fetchUsers() {
+        isLoading = true
+        if currentPage == 1 {
+            onStateChange?(.loading)
+        }
+        searchUsersUseCase.execute(query: currentQuery, page: currentPage) { [weak self] result in
             guard let self = self else { return }
             
             switch result {
             case .success(let users):
                 if users.isEmpty {
-                    self.onStateChange?(.empty("Sonuç bulunamadı."))
-                } else {
-                    self.cellViewModels = self.mapUsersToCellViewModels(users)
+                    self.hasMoreUsers = false
                 }
+                let newCellViewModels = self.mapUsersToCellViewModels(users)
+                self.cellViewModels.append(contentsOf: newCellViewModels)
+                
+                if self.cellViewModels.isEmpty {
+                    self.onStateChange?(.empty("Empty data"))
+                } else {
+                    self.onStateChange?(.success(self.cellViewModels))
+                }
+                
             case .failure(let error):
+                print(error.localizedDescription)
                 self.onStateChange?(.failure(error.localizedDescription))
             }
+            
+            self.isLoading = false
         }
     }
     
@@ -74,6 +103,7 @@ final class HomeViewModel {
         
         viewModel.isFavorite.toggle()
         cellViewModels[index] = viewModel
+        onStateChange?(.success(cellViewModels))
     }
     
     private func mapUsersToCellViewModels(_ users: [User]) -> [UserItemModel] {

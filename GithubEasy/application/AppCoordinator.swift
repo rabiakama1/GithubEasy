@@ -7,47 +7,35 @@
 
 import UIKit
 
-final class AppCoordinator {
+protocol Coordinator {
+    func start()
+}
+
+final class AppCoordinator: Coordinator {
     private let window: UIWindow
-    private let navigationController: UINavigationController
+    
+    private var childCoordinators: [Coordinator] = []
     
     init(window: UIWindow) {
         self.window = window
-        self.navigationController = UINavigationController()
     }
     
     func start() {
-        let apiService = APIService()
-        let coreDataManager = CoreDataManager.shared
-        let userRepository = DefaultUserRepository(apiService: apiService, coreData: coreDataManager)
-        let searchUseCase = SearchUsersUseCase(repository: userRepository)
-        let homeViewModel = HomeViewModel(searchUsersUseCase: searchUseCase,
-                                          userRepository: userRepository)
+        let tabBarController = MainTabBarController()
+        let homeNavigationController = UINavigationController()
+        homeNavigationController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
+        let homeCoordinator = HomeCoordinator(navigationController: homeNavigationController)
         
-        let homeVC = HomeViewController(viewModel: homeViewModel)
+        let favoritesNavigationController = UINavigationController()
+        favoritesNavigationController.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(systemName: "star.fill"), tag: 1)
+        let favoritesCoordinator = FavoritesCoordinator(navigationController: favoritesNavigationController)
+        childCoordinators = [homeCoordinator, favoritesCoordinator]
+        homeCoordinator.start()
+        favoritesCoordinator.start()
         
-        // Callback → navigation işini Coordinator yapıyor
-        homeVC.onUserSelected = { [weak self] user in
-            self?.showDetail(for: user, repository: userRepository)
-        }
-        homeVC.onFavoritesTapped = { [weak self] in
-            self?.showFavorites(repository: userRepository)
-        }
-        
-        navigationController.viewControllers = [homeVC]
-        window.rootViewController = navigationController
+        tabBarController.viewControllers = [homeNavigationController, favoritesNavigationController]
+
+        window.rootViewController = tabBarController
         window.makeKeyAndVisible()
-    }
-    
-    private func showDetail(for user: User, repository: UserRepositoryProtocol) {
-        let detailViewModel = DetailViewModel(user: user, userRepository: repository)
-        let detailVC = DetailViewController(viewModel: detailViewModel)
-        navigationController.pushViewController(detailVC, animated: true)
-    }
-    
-    private func showFavorites(repository: UserRepositoryProtocol) {
-        let favoritesViewModel = FavoriteViewModel(userRepository: repository)
-        let favoritesVC = FavoriteViewController(viewModel: favoritesViewModel)
-        navigationController.pushViewController(favoritesVC, animated: true)
     }
 }

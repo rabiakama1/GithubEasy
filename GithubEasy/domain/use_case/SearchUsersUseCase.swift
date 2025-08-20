@@ -7,12 +7,12 @@
 
 class SearchUsersUseCase {
     private let repository: UserRepositoryProtocol
-
+    
     init(repository: UserRepositoryProtocol) {
         self.repository = repository
     }
-
-    func execute(query: String, completion: @escaping (Result<[User], Error>) -> Void) {
-        repository.searchUsers(query: query, completion: completion)
+    
+    func execute(query: String, page: Int, completion: @escaping (Result<[User], Error>) -> Void) {
+        repository.searchUsers(query: query, page: page, completion: completion)
     }
 }

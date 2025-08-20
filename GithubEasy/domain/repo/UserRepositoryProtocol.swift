@@ -13,7 +13,7 @@ protocol UserRepositoryProtocol {
     /// - Parameters:
     ///   - query: Aranacak metin.
     ///   - completion: Sonuçları içeren bir `Result` döner. Başarılı olursa `[User]`, başarısız olursa `Error`.
-    func searchUsers(query: String, completion: @escaping (Result<[User], Error>) -> Void)
+    func searchUsers(query: String, page: Int, completion: @escaping (Result<[User], Error>) -> Void)
     
     /// Belirli bir kullanıcının detay bilgilerini getirir.
     /// - Parameters:
