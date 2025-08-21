@@ -7,16 +7,9 @@
 
 import UIKit
 
-final class HomeCoordinator: Coordinator {
-    private let navigationController: UINavigationController
-    private let userRepository: UserRepositoryProtocol
+final class HomeCoordinator: BaseCoordinator {
     
-    init(navigationController: UINavigationController, userRepository: UserRepositoryProtocol) {
-        self.navigationController = navigationController
-        self.userRepository = userRepository
-    }
-    
-    func start() {
+    override func start() {
         let searchUseCase = SearchUsersUseCase(repository: userRepository)
         let addFavoriteUseCase = AddFavoriteUseCase(repository: userRepository)
         let removeFavoriteUseCase = RemoveFavoriteUseCase(repository: userRepository)
@@ -36,23 +29,5 @@ final class HomeCoordinator: Coordinator {
         }
         
         navigationController.viewControllers = [homeVC]
-    }
-    
-    private func showDetail(for userLogin: String) {
-        let getUserDetailUseCase = GetUserDetailsUseCase(repository: self.userRepository)
-        let addFavoriteUseCase = AddFavoriteUseCase(repository: self.userRepository)
-        let removeFavoriteUseCase = RemoveFavoriteUseCase(repository: self.userRepository)
-        let isFavoriteUseCase = IsFavoriteUseCase(repository: self.userRepository)
-        
-        let detailViewModel = DetailViewModel(
-            login: userLogin,
-            getUserDetailUseCase: getUserDetailUseCase,
-            addFavoriteUseCase: addFavoriteUseCase,
-            removeFavoriteUseCase: removeFavoriteUseCase,
-            isFavoriteUseCase: isFavoriteUseCase
-        )
-        
-        let detailVC = DetailViewController(viewModel: detailViewModel)
-        navigationController.pushViewController(detailVC, animated: true)
     }
 }
