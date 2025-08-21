@@ -61,7 +61,7 @@ final class CoreDataManager {
         favoriteUser.login = login
         favoriteUser.avatarURL = avatarUrl
         favoriteUser.htmlURL = profileUrl
-        favoriteUser.date = Date()
+        favoriteUser.createdAt = Date()
         print("✅ Favori ekleniyor: \(login)")
         saveContext()
         print("💾 Kayıt işlemi tamamlandı.")
@@ -89,7 +89,7 @@ final class CoreDataManager {
         let fetchRequest: NSFetchRequest<FavoriteUser> = FavoriteUser.fetchRequest()
         
         // En son ekleneni en üstte göstermek için sıralama
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "createdAt", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         do {

@@ -39,7 +39,7 @@ final class HomeViewModel {
     }
     
     func start() {
-        onStateChange?(.idle)
+        onStateChange?(.empty("Search a user..."))
     }
     
     func search(query: String) {
@@ -49,10 +49,9 @@ final class HomeViewModel {
         hasMoreUsers = true
         
         guard !query.trimmingCharacters(in: .whitespaces).isEmpty else {
-            onStateChange?(.idle)
+            onStateChange?(.empty("Search a user..."))
             return
         }
-        
         fetchUsers()
     }
     

@@ -12,15 +12,19 @@ final class APIService {
     private let baseURL = "https://api.github.com/"
     
     private func performRequest<T: Decodable>(path: String, queryItems: [URLQueryItem]? = nil, completion: @escaping (Result<T, APIError>) -> Void) {
+        guard let baseURLObject = URL(string: baseURL) else {
+            completion(.failure(.invalidURL))
+            return
+        }
         
-        var components = URLComponents(string: baseURL)
-        components?.path = "/" + path
+        var components = URLComponents(url: baseURLObject.appendingPathComponent(path), resolvingAgainstBaseURL: false)
         components?.queryItems = queryItems
         
         guard let url = components?.url else {
             completion(.failure(.invalidURL))
             return
         }
+
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             
             DispatchQueue.main.async {

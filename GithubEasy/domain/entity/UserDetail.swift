@@ -10,5 +10,6 @@ import Foundation
 struct UserDetail {
     let login: String
     let avatarUrl: String
-    let date: Date
+    let createdAt: String
+    let htmlUrl: String
 }

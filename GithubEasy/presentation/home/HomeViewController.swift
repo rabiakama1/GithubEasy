@@ -72,14 +72,16 @@ class HomeViewController: UIViewController {
             tableView.reloadData()
             tableView.removeBackgroundView()
         case .loading:
+            tableView.removeBackgroundView()
             showLoading()
         case .success(let userList):
             removeLoading()
             users = userList
             tableView.reloadData()
+            tableView.removeBackgroundView()
         case .failure(let error):
             removeLoading()
-            showAlert(title: "Error", message: error)
+            showAlert(title: "Hata", message: error)
         case .empty(let message):
             removeLoading()
             users = []
@@ -164,9 +166,4 @@ extension UIViewController {
         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         present(alert, animated: true)
     }
-}
-
-extension UITableView {
-    func setBackgroundView(message: String) {  }
-    func removeBackgroundView() {  }
 }

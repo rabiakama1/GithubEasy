@@ -10,12 +10,14 @@ import Foundation
 struct UserDetailDTO: Codable {
     let login: String
     let avatarUrl: String
-    let date: Date
+    let createdAt: String
+    let htmlUrl:String
     
     enum CodingKeys: String, CodingKey {
         case login
         case avatarUrl = "avatar_url"
-        case date
+        case createdAt = "created_at"
+        case htmlUrl = "html_url"
     }
 
     // DTO'yu Domain modeline çevirir
@@ -23,7 +25,8 @@ struct UserDetailDTO: Codable {
         return UserDetail(
             login: login,
             avatarUrl: avatarUrl,
-            date: date
+            createdAt: createdAt,
+            htmlUrl: htmlUrl
         )
     }
 }

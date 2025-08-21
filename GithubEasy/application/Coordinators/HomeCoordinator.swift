@@ -39,6 +39,20 @@ final class HomeCoordinator: Coordinator {
     }
     
     private func showDetail(for userLogin: String) {
-        // Detay sayfasını push etme mantığı burada.
+        let getUserDetailUseCase = GetUserDetailsUseCase(repository: self.userRepository)
+        let addFavoriteUseCase = AddFavoriteUseCase(repository: self.userRepository)
+        let removeFavoriteUseCase = RemoveFavoriteUseCase(repository: self.userRepository)
+        let isFavoriteUseCase = IsFavoriteUseCase(repository: self.userRepository)
+        
+        let detailViewModel = DetailViewModel(
+            login: userLogin,
+            getUserDetailUseCase: getUserDetailUseCase,
+            addFavoriteUseCase: addFavoriteUseCase,
+            removeFavoriteUseCase: removeFavoriteUseCase,
+            isFavoriteUseCase: isFavoriteUseCase
+        )
+        
+        let detailVC = DetailViewController(viewModel: detailViewModel)
+        navigationController.pushViewController(detailVC, animated: true)
     }
 }

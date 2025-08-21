@@ -59,6 +59,7 @@ class FavoriteViewController: UIViewController {
     private func handleStateChange(_ state: ViewState<[UserItemModel]>) {
         switch state {
         case .loading:
+            favoriteTableView.removeBackgroundView()
             showLoading()
         case .success(let userList):
             removeLoading()
@@ -72,9 +73,10 @@ class FavoriteViewController: UIViewController {
             favoriteTableView.setBackgroundView(message: message)
         case .failure(let error):
             removeLoading()
-            showAlert(title: "Error", message: error)
+            showAlert(title: "Hata", message: error)
         case .idle:
             removeLoading()
+            favoriteTableView.removeBackgroundView()
         }
     }
 }
