@@ -13,7 +13,7 @@ protocol HomeTableViewCellDelegate: AnyObject {
 
 class HomeTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var favoriteBtn: UIButton!
+    @IBOutlet weak var favoriteImg: UIImageView!
     @IBOutlet weak var nameLbl: UILabel!
     @IBOutlet weak var avatarImg: UIImageView!
     @IBOutlet weak var itemView: UIView!
@@ -44,6 +44,17 @@ class HomeTableViewCell: UITableViewCell {
         avatarImg.tintColor = .systemGray3
         avatarImg.contentMode = .scaleAspectFill
         selectionStyle = .none
+        setupFavoriteButton()
+    }
+    
+    private func setupFavoriteButton() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(favoriteButtonTapped))
+        favoriteImg.isUserInteractionEnabled = true
+        favoriteImg.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func favoriteButtonTapped() {
+        delegate?.didTapFavoriteButton(in: self)
     }
     
     override func prepareForReuse() {
@@ -122,11 +133,8 @@ class HomeTableViewCell: UITableViewCell {
     private func updateFavoriteButton(isFavorite: Bool) {
         let imageName = isFavorite ? "star.fill" : "star"
         let image = UIImage(systemName: imageName)
-        favoriteBtn.setImage(image, for: .normal)
-        favoriteBtn.tintColor = isFavorite ? .systemYellow : .gray
+        favoriteImg.image = image
+        favoriteImg.tintColor = isFavorite ? .systemYellow : .gray
     }
-    
-    @IBAction func favoriteBtnClicked(_ sender: Any) {
-        delegate?.didTapFavoriteButton(in: self)
-    }
+
 }

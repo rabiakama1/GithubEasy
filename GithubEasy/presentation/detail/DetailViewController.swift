@@ -9,12 +9,19 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var userNameLbl: UILabel!
+    @IBOutlet weak var userNameTitle: UILabel!
+    @IBOutlet weak var nameLbl: UILabel!
+    @IBOutlet weak var nameTitle: UILabel!
+    @IBOutlet weak var locationLbl: UILabel!
+    @IBOutlet weak var locationTitle: UILabel!
     @IBOutlet weak var profileLbl: UILabel!
     @IBOutlet weak var favoriteBtn: UIButton!
     @IBOutlet weak var detailView: UIView!
     @IBOutlet weak var avatarImg: UIImageView!
     private let viewModel: DetailViewModel
+    private var userDetail: UserDetail?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,9 +67,18 @@ class DetailViewController: UIViewController {
     }
     
     private func updateUI(with userDetail: UserDetail) {
-        self.title = userDetail.login
         userNameLbl.text = userDetail.login
+        userNameTitle.text = "User Name : "
+        nameLbl.text = userDetail.name
+        nameTitle.text = "Name : "
+        locationLbl.text = userDetail.location
+        locationTitle.text = "Location : "
+        self.title = userDetail.login
         profileLbl.text = userDetail.htmlUrl
+        profileLbl.textColor = .systemBlue
+        profileLbl.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(openProfile))
+        profileLbl.addGestureRecognizer(tap)
         
         if let url = URL(string: userDetail.avatarUrl) {
             DispatchQueue.global().async {
@@ -75,6 +91,12 @@ class DetailViewController: UIViewController {
         }
         
         updateFavoriteButton(isFavorite: viewModel.isFavorite)
+    }
+    
+    @objc func openProfile() {
+        if let url = URL(string: userDetail?.htmlUrl ?? "") {
+            UIApplication.shared.open(url)
+        }
     }
     
     private func updateFavoriteButton(isFavorite: Bool) {

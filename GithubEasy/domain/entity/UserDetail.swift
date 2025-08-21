@@ -12,4 +12,6 @@ struct UserDetail {
     let avatarUrl: String
     let createdAt: String
     let htmlUrl: String
+    let name: String
+    let location: String
 }

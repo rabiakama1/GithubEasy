@@ -12,12 +12,16 @@ struct UserDetailDTO: Codable {
     let avatarUrl: String
     let createdAt: String
     let htmlUrl:String
+    let name:String
+    let location:String
     
     enum CodingKeys: String, CodingKey {
         case login
         case avatarUrl = "avatar_url"
         case createdAt = "created_at"
         case htmlUrl = "html_url"
+        case name
+        case location
     }
 
     // DTO'yu Domain modeline çevirir
@@ -26,7 +30,9 @@ struct UserDetailDTO: Codable {
             login: login,
             avatarUrl: avatarUrl,
             createdAt: createdAt,
-            htmlUrl: htmlUrl
+            htmlUrl: htmlUrl,
+            name:name,
+            location:location
         )
     }
 }
