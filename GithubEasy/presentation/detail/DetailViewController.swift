@@ -67,6 +67,7 @@ class DetailViewController: UIViewController {
     }
     
     private func updateUI(with userDetail: UserDetail) {
+        detailView.layer.cornerRadius = 8
         userNameLbl.text = userDetail.login
         userNameTitle.text = "User Name : "
         nameLbl.text = userDetail.name

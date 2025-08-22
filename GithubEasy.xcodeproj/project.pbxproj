@@ -6,7 +6,18 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		FC8AE4662E58F06800927AA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FCFBB8632E537D43009AB864 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FCFBB86A2E537D43009AB864;
+			remoteInfo = GithubEasy;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		FC8AE4622E58F06800927AA3 /* GithubEasyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GithubEasyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCFBB86B2E537D43009AB864 /* GithubEasy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubEasy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -21,6 +32,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		FC8AE4632E58F06800927AA3 /* GithubEasyTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = GithubEasyTests;
+			sourceTree = "<group>";
+		};
 		FCFBB86D2E537D43009AB864 /* GithubEasy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -32,6 +48,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		FC8AE45F2E58F06800927AA3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FCFBB8682E537D43009AB864 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -46,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				FCFBB86D2E537D43009AB864 /* GithubEasy */,
+				FC8AE4632E58F06800927AA3 /* GithubEasyTests */,
 				FCFBB86C2E537D43009AB864 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				FCFBB86B2E537D43009AB864 /* GithubEasy.app */,
+				FC8AE4622E58F06800927AA3 /* GithubEasyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +86,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		FC8AE4612E58F06800927AA3 /* GithubEasyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC8AE4682E58F06800927AA3 /* Build configuration list for PBXNativeTarget "GithubEasyTests" */;
+			buildPhases = (
+				FC8AE45E2E58F06800927AA3 /* Sources */,
+				FC8AE45F2E58F06800927AA3 /* Frameworks */,
+				FC8AE4602E58F06800927AA3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FC8AE4672E58F06800927AA3 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FC8AE4632E58F06800927AA3 /* GithubEasyTests */,
+			);
+			name = GithubEasyTests;
+			packageProductDependencies = (
+			);
+			productName = GithubEasyTests;
+			productReference = FC8AE4622E58F06800927AA3 /* GithubEasyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FCFBB86A2E537D43009AB864 /* GithubEasy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FCFBB87E2E537D44009AB864 /* Build configuration list for PBXNativeTarget "GithubEasy" */;
@@ -93,6 +141,10 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
+					FC8AE4612E58F06800927AA3 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = FCFBB86A2E537D43009AB864;
+					};
 					FCFBB86A2E537D43009AB864 = {
 						CreatedOnToolsVersion = 16.2;
 					};
@@ -113,11 +165,19 @@
 			projectRoot = "";
 			targets = (
 				FCFBB86A2E537D43009AB864 /* GithubEasy */,
+				FC8AE4612E58F06800927AA3 /* GithubEasyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		FC8AE4602E58F06800927AA3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FCFBB8692E537D43009AB864 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +188,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		FC8AE45E2E58F06800927AA3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FCFBB8672E537D43009AB864 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,7 +204,49 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		FC8AE4672E58F06800927AA3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FCFBB86A2E537D43009AB864 /* GithubEasy */;
+			targetProxy = FC8AE4662E58F06800927AA3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		FC8AE4692E58F06800927AA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rabiakama.GithubEasyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GithubEasy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GithubEasy";
+			};
+			name = Debug;
+		};
+		FC8AE46A2E58F06800927AA3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rabiakama.GithubEasyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GithubEasy.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GithubEasy";
+			};
+			name = Release;
+		};
 		FCFBB87F2E537D44009AB864 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -314,6 +423,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		FC8AE4682E58F06800927AA3 /* Build configuration list for PBXNativeTarget "GithubEasyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC8AE4692E58F06800927AA3 /* Debug */,
+				FC8AE46A2E58F06800927AA3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FCFBB8662E537D43009AB864 /* Build configuration list for PBXProject "GithubEasy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
