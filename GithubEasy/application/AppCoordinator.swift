@@ -27,11 +27,11 @@ final class AppCoordinator: Coordinator {
         let tabBarController = MainTabBarController()
         
         let homeNavigationController = UINavigationController()
-        homeNavigationController.tabBarItem = UITabBarItem(title: "Arama", image: UIImage(systemName: "magnifyingglass"), tag: 0)
+        homeNavigationController.tabBarItem = UITabBarItem(title: "Search", image: UIImage(systemName: "magnifyingglass"), tag: 0)
         let homeCoordinator = HomeCoordinator(navigationController: homeNavigationController, userRepository: userRepository)
         
         let favoritesNavigationController = UINavigationController()
-        favoritesNavigationController.tabBarItem = UITabBarItem(title: "Favoriler", image: UIImage(systemName: "star.fill"), tag: 1)
+        favoritesNavigationController.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star.fill"), tag: 1)
         let favoritesCoordinator = FavoritesCoordinator(navigationController: favoritesNavigationController, userRepository: userRepository)
         
         childCoordinators = [homeCoordinator, favoritesCoordinator]

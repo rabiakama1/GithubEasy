@@ -35,7 +35,7 @@ final class HomeViewModel {
         self.addFavoriteUseCase = addFavoriteUseCase
         self.removeFavoriteUseCase = removeFavoriteUseCase
         self.isFavoriteUseCase = isFavoriteUseCase
-        startObservingFavoriteChanges()
+        observeFavoriteChanges()
     }
     
     func start() {
@@ -96,7 +96,7 @@ final class HomeViewModel {
         NotificationCenter.default.removeObserver(self)
     }
     
-    private func startObservingFavoriteChanges() {
+    private func observeFavoriteChanges() {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(handleFavoriteStatusChange),
